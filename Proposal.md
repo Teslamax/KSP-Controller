@@ -98,35 +98,18 @@ The project is in the design and planning phase. **Hardware and software conside
 
 ---
 
-## **🎮 USB Profiles & Game Compatibility**
-### **Game Modes (Selectable via Menu System)**
-| **Profile** | **Purpose** |
-|-----------|-----------|
-| **KSP Mode** | Uses Kerbal Simpit Revamped for full integration |
-| **Elite Dangerous Mode** | Maps controls for 6DOF flight & combat |
-| **Default USB-HID Mode** | Recognized as a standard joystick/gamepad |
+## **🌍 Open-Source API for Display Integration**
+- **Aurora Project**: Integrates with multiple games for RGB lighting effects and potential data extraction.
+- **OpenRGB**: Unified lighting control across different devices, could be leveraged for game status display.
+- **Game APIs**: Games like **Microsoft Flight Simulator, Elite Dangerous, Euro Truck Simulator 2, and Star Citizen** have external display APIs for telemetry.
+- **Potential Approach**: Reverse-engineering or leveraging open-source projects to display game state information on the controller’s TFT display.
 
 ---
 
-## **📝 Appendix: Review of Past Decisions & Feature Summary**
-### **Past Decisions & Justifications**
-- **Motorized potentiometer chosen** for throttle due to calibration benefits.
-- **Removed rotary throttle limiter** as motorized throttle provides necessary control.
-- **Spring-loaded slider added** for fore/aft translation instead of repurposing joystick.
-- **Precision Control Mode Button (Fine Control) replaced Docking Mode Button**, as it is more generally useful.
-- **Stage Lock Button (LED-lit) added** to prevent accidental staging.
-- **Ethernet (PoE) included** as an internal UCTRONICS splitter for power & optional data features.
-
-### **Summary of All Planned Features**
-- **Full joystick-based 6DOF control** with translation & rotation.
-- **Motorized throttle with OLED display feedback.**
-- **Customizable action groups (20 buttons, split into 2x10 layout).**
-- **LED-lit toggle buttons for important functions (SAS, RCS, Gear, Brakes, Stage Lock).**
-- **RGB rotary encoders for SAS & Camera Modes.**
-- **TFT display for primary status readout (altitude, velocity, mode indicators).**
-- **OLED menu system with a rotary encoder for settings & calibration.**
-- **USB-C power with optional PoE backup.**
-- **Future expansion via kRPC for full autopilot scripting support.**
+## **💡 LED Control Options**
+- **PWM Control via Microcontroller**: Simple and effective for a limited number of LEDs.
+- **I²C-Based LED Drivers (PCA9685)**: Can manage up to 16 independent LEDs, scalable for more complex lighting needs.
+- **Addressable RGB LEDs (WS2812B, APA102)**: Single data line control for multiple LEDs, allows customizable effects.
 
 ---
 
