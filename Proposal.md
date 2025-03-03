@@ -85,31 +85,34 @@ The project is in the design and planning phase. **Hardware and software conside
 
 ---
 
-## **🔌 Integration with KSP Mods**
-### **Primary Mod: Kerbal Simpit Revamped**
-- Supports **bidirectional game data exchange**
-- Enables **reading throttle, altitude, SAS modes, etc.**
-- Allows **controlling SAS, RCS, lights, gear, action groups**
+## **📌 Appendix: SAS Mode Selection Considerations**
+### **Debating Between RGB Buttons vs. Rotary Encoder for SAS Mode**
+Currently undecided between two options:
+- **8 RGB-Lit Buttons (2x4 Layout)** for direct SAS mode switching.
+- **RGB-Lit Rotary Encoder** for cycling through SAS modes sequentially.
 
-### **Future Expansion: kRPC Mod**
-- More advanced scripting & telemetry
-- Possible **custom autopilot & automation features**
-- **More complex than Kerbal Simpit Revamped**, but allows full API access
+#### **Pros of RGB Buttons**
+✔ **Faster switching** – Instant access to any mode.  
+✔ **Clearer visual feedback** – Each button can light up for active mode.  
+✔ **Better for other game profiles** – Buttons can be reassigned in different USB-HID profiles.  
 
----
+#### **Cons of RGB Buttons**
+❌ **More space required** – Takes up significant panel space.  
+❌ **Higher wiring complexity** – Each button needs dedicated connections or a button matrix.  
 
-## **🌍 Open-Source API for Display Integration**
-- **Aurora Project**: Integrates with multiple games for RGB lighting effects and potential data extraction.
-- **OpenRGB**: Unified lighting control across different devices, could be leveraged for game status display.
-- **Game APIs**: Games like **Microsoft Flight Simulator, Elite Dangerous, Euro Truck Simulator 2, and Star Citizen** have external display APIs for telemetry.
-- **Potential Approach**: Reverse-engineering or leveraging open-source projects to display game state information on the controller’s TFT display.
+#### **Pros of Rotary Encoder**
+✔ **Compact design** – Takes up less space than buttons.  
+✔ **Simpler wiring** – Fewer connections needed.  
+✔ **Scalable** – Can support more SAS modes if mods add more options.  
 
----
+#### **Cons of Rotary Encoder**
+❌ **Slower selection** – Must cycle through modes sequentially.  
+❌ **Less immediate feedback** – Only one active mode is visible.  
 
-## **💡 LED Control Options**
-- **PWM Control via Microcontroller**: Simple and effective for a limited number of LEDs.
-- **I²C-Based LED Drivers (PCA9685)**: Can manage up to 16 independent LEDs, scalable for more complex lighting needs.
-- **Addressable RGB LEDs (WS2812B, APA102)**: Single data line control for multiple LEDs, allows customizable effects.
+#### **Current Plan**
+- **Re-evaluate after gameplay testing** to determine how frequently SAS mode switching is needed.
+- **Hybrid approach possible**: A mix of **buttons for key SAS modes** and **encoder for full selection** could be an option if space allows.
+- **Whichever is chosen, SAS mode must be displayed on the TFT for clarity.**
 
 ---
 
