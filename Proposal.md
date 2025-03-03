@@ -108,21 +108,32 @@ The project is in the design and planning phase. **Hardware and software conside
 
 ---
 
-## **📝 Appendix: Rejected Features & Why**
-| **Feature Considered** | **Reason for Rejection** |
-|------------------|------------------|
-| **Built-in AC-DC PSU (IEC C7/C8)** | Too complex, unnecessary for now |
-| **Fully Integrated PoE on PCB** | Using external UCTRONICS splitter instead |
-| **Dedicated Launch Countdown Display** | Could be implemented later in software |
-| **Haptic Feedback** | Not necessary, increases cost & complexity |
-| **RGB-lit Rotary Encoders for Throttle** | Not needed for function, may be added later |
+## **📝 Appendix: Review of Past Decisions & Feature Summary**
+### **Past Decisions & Justifications**
+- **Motorized potentiometer chosen** for throttle due to calibration benefits.
+- **Removed rotary throttle limiter** as motorized throttle provides necessary control.
+- **Spring-loaded slider added** for fore/aft translation instead of repurposing joystick.
+- **Precision Control Mode Button (Fine Control) replaced Docking Mode Button**, as it is more generally useful.
+- **Stage Lock Button (LED-lit) added** to prevent accidental staging.
+- **Ethernet (PoE) included** as an internal UCTRONICS splitter for power & optional data features.
+
+### **Summary of All Planned Features**
+- **Full joystick-based 6DOF control** with translation & rotation.
+- **Motorized throttle with OLED display feedback.**
+- **Customizable action groups (20 buttons, split into 2x10 layout).**
+- **LED-lit toggle buttons for important functions (SAS, RCS, Gear, Brakes, Stage Lock).**
+- **RGB rotary encoders for SAS & Camera Modes.**
+- **TFT display for primary status readout (altitude, velocity, mode indicators).**
+- **OLED menu system with a rotary encoder for settings & calibration.**
+- **USB-C power with optional PoE backup.**
+- **Future expansion via kRPC for full autopilot scripting support.**
 
 ---
 
 ## **📌 Next Steps**
-- **Refine internal wiring design (keystone vs. panel-mount connectors)**
-- **Design a PCB layout for switch & encoder connections**
-- **Begin prototype assembly with Teensy 4.1 & PoE splitter**
+- **Refine internal wiring design (keystone vs. panel-mount connectors).**
+- **Design a PCB layout for switch & encoder connections.**
+- **Begin prototype assembly with Teensy 4.1 & PoE splitter.**
 
 ---
 
