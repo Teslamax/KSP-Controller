@@ -89,7 +89,15 @@ Evaluating different control methods for RGB LEDs, including I2C controllers or 
 
 ## **📌 Appendix: KSP Mod Integration for External Hardware**
 ### **Comparison of KSP Mods Supporting External Hardware**
-[Table remains unchanged]
+| **Mod Name**                 | **Communication Method** | **Input Capabilities** | **Output Capabilities** | **Maintenance Status** |
+|------------------------------|--------------------------|------------------------|------------------------|------------------------|
+| **Kerbal Simpit Revamped**   | USB Serial               | SAS, RCS, gear, lights, brakes, action groups, throttle, camera, timewarp | Altitude, velocity, resources, SAS mode, orbit data, target data | Actively maintained |
+| **kRPC**                     | Ethernet (TCP/IP)        | Full vessel control via scripts | Full telemetry, orbital data, automation | Actively maintained |
+| **Telemachus**               | Ethernet (HTTP/WebSocket)| Limited control via web UI | Telemetry, resource monitoring, environment data | Maintenance varies |
+| **Kerbal Telemetry**         | Ethernet (HTTP/WebSocket)| Limited control (future updates planned) | Real-time telemetry, target tracking, 3D positioning | Maintenance varies |
+| **KAPCOM**                   | Ethernet (TCP/IP)        | Mission control-style commands | Real-time telemetry, mission monitoring | Maintenance varies |
+| **SerialIO**                 | USB Serial               | Basic vessel control | Telemetry output | Maintenance varies |
+| **EthernetIO**               | Ethernet (TCP/IP)        | Basic vessel control | Telemetry output | Maintenance varies |
 
 ---
 
