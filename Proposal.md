@@ -69,50 +69,42 @@ The project is in the design and planning phase. **Hardware and software conside
 
 ---
 
-## **🛠 Features & Software Integration**
-### **Implemented Features**
-✔ **Throttle with auto-calibration** (Motorized Potentiometer)  
-✔ **Rotary encoders for SAS & camera modes**  
-✔ **OLED-based menu for settings & calibration**  
-✔ **USB-HID profile selection (KSP, Elite Dangerous, Default USB-HID)**  
-✔ **LED-lit feedback for mode toggles** (Landing Gear, RCS, etc.)  
-✔ **Stage lock button with LED indicator**  
-
-### **Planned Software Enhancements**
-🚀 **Modular firmware to allow remapping of buttons & encoders**  
-🚀 **Logging system for power usage & button presses**  
-🚀 **Optional Ethernet-based IoT features** (remote status, integration with other systems)  
-
----
-
 ## **📌 Appendix: SAS Mode Selection Considerations**
 ### **Debating Between RGB Buttons vs. Rotary Encoder for SAS Mode**
 Currently undecided between two options:
 - **8 RGB-Lit Buttons (2x4 Layout)** for direct SAS mode switching.
 - **RGB-Lit Rotary Encoder** for cycling through SAS modes sequentially.
 
-#### **Pros of RGB Buttons**
-✔ **Faster switching** – Instant access to any mode.  
-✔ **Clearer visual feedback** – Each button can light up for active mode.  
-✔ **Better for other game profiles** – Buttons can be reassigned in different USB-HID profiles.  
+---
 
-#### **Cons of RGB Buttons**
-❌ **More space required** – Takes up significant panel space.  
-❌ **Higher wiring complexity** – Each button needs dedicated connections or a button matrix.  
+## **📌 Appendix: Open-Source API for Display Integration**
+Exploring the possibility of integrating open-source APIs for external displays, particularly for compatibility with multiple games beyond KSP.
 
-#### **Pros of Rotary Encoder**
-✔ **Compact design** – Takes up less space than buttons.  
-✔ **Simpler wiring** – Fewer connections needed.  
-✔ **Scalable** – Can support more SAS modes if mods add more options.  
+---
 
-#### **Cons of Rotary Encoder**
-❌ **Slower selection** – Must cycle through modes sequentially.  
-❌ **Less immediate feedback** – Only one active mode is visible.  
+## **📌 Appendix: LED Control Options**
+Evaluating different control methods for RGB LEDs, including I2C controllers or direct PWM control from the microcontroller.
 
-#### **Current Plan**
-- **Re-evaluate after gameplay testing** to determine how frequently SAS mode switching is needed.
-- **Hybrid approach possible**: A mix of **buttons for key SAS modes** and **encoder for full selection** could be an option if space allows.
-- **Whichever is chosen, SAS mode must be displayed on the TFT for clarity.**
+---
+
+## **📌 Appendix: KSP Mod Integration for External Hardware**
+### **Comparison of KSP Mods Supporting External Hardware**
+| **Mod Name**                 | **Communication Method** | **Input Capabilities** | **Output Capabilities** | **Maintenance Status** |
+|------------------------------|--------------------------|------------------------|------------------------|------------------------|
+| **Kerbal Simpit Revamped**   | USB Serial               | SAS, RCS, gear, lights, brakes, action groups, throttle, camera, timewarp | Altitude, velocity, resources, SAS mode, orbit data, target data | Actively maintained |
+| **kRPC**                     | Ethernet (TCP/IP)        | Full vessel control via scripts | Full telemetry, orbital data, automation | Actively maintained |
+| **Telemachus**               | Ethernet (HTTP/WebSocket)| Limited control via web UI | Telemetry, resource monitoring, environment data | Maintenance varies |
+| **Kerbal Telemetry**         | Ethernet (HTTP/WebSocket)| Limited control (future updates planned) | Real-time telemetry, target tracking, 3D positioning | Maintenance varies |
+| **KAPCOM**                   | Ethernet (TCP/IP)        | Mission control-style commands | Real-time telemetry, mission monitoring | Maintenance varies |
+| **SerialIO**                 | USB Serial               | Basic vessel control | Telemetry output | Maintenance varies |
+| **EthernetIO**               | Ethernet (TCP/IP)        | Basic vessel control | Telemetry output | Maintenance varies |
+
+### **Key Considerations**
+- **Kerbal Simpit Revamped**: Best for USB integration; active development.
+- **kRPC**: Best for advanced scripting and automation via Ethernet.
+- **Telemachus/Kerbal Telemetry**: Great for telemetry displays but limited control.
+- **Multiple Mods Possible**: A hybrid approach (e.g., Kerbal Simpit Revamped + kRPC) might offer the best flexibility.
+- **Microcontroller Support for kRPC**: kRPC has C client libraries that could be used for direct microcontroller integration over Ethernet.
 
 ---
 
