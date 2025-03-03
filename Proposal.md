@@ -17,7 +17,7 @@ The project is in the design and planning phase. **Hardware and software conside
 | **TFT Display** | Main status display (altitude, velocity, SAS mode, camera mode, etc.) | Chosen for high-resolution graphical feedback |
 | **OLED Display (Throttle)** | Shows throttle mode, current throttle percentage, and in-game throttle level | Compact & high-contrast |
 | **OLED Display (Menu)** | Used for profile selection, calibration, settings | Menu navigation via rotary encoder |
-| **RGB-Lit Buttons** | Indicate status of landing gear, brakes, RCS, SAS | Provides immediate visual feedback |
+| **RGB-Lit Buttons** | Indicate status of landing gear, brakes, RCS, SAS, stage lock | Provides immediate visual feedback |
 | **RGB-Lit Rotary Encoders** | Used for SAS mode and camera mode selection | Blinks briefly when a mode is switched |
 
 ### **Controls**
@@ -25,12 +25,12 @@ The project is in the design and planning phase. **Hardware and software conside
 |-----------|------------|----------|
 | **2x Joysticks (JH-D400X-R4)** | **Translation (X, Y, Z) & Rotation (Pitch, Yaw, Roll)** | One for translation, one for rotation |
 | **Linear Potentiometer (Throttle)** | **Primary throttle control** | Motorized for self-calibration & auto-throttle |
-| **Rotary Encoder (Throttle Limiter)** | Limits max throttle | Shows limit on OLED |
+| **Spring-Loaded Slider (Fore/Aft Translation)** | **Allows forward/backward movement in space** | Returns to center when released |
 | **Rotary Encoder (Camera Mode)** | Cycles through camera views | Click toggles Free Camera |
 | **Rotary Encoder (SAS Mode)** | Changes SAS mode | RGB-lit for mode indication |
 | **20x Action Group Buttons** | Used for custom game functions | Split into 2x10 layout |
-| **Momentary/Toggling Throttle Cutoff** | Disables throttle input | Useful for automation |
-| **Docking Mode Button** | Enables fine-tuned docking mode | LED-lit for status indication |
+| **Precision Control Mode Button** | Enables fine-tuned movement (Caps Lock in KSP) | LED-lit for status indication |
+| **Stage Button & Stage Lock Button (LED-lit)** | Executes staging and prevents accidental staging | Stage lock LED indicates status |
 
 ---
 
@@ -76,6 +76,7 @@ The project is in the design and planning phase. **Hardware and software conside
 ✔ **OLED-based menu for settings & calibration**  
 ✔ **USB-HID profile selection (KSP, Elite Dangerous, Default USB-HID)**  
 ✔ **LED-lit feedback for mode toggles** (Landing Gear, RCS, etc.)  
+✔ **Stage lock button with LED indicator**  
 
 ### **Planned Software Enhancements**
 🚀 **Modular firmware to allow remapping of buttons & encoders**  
