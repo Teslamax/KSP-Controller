@@ -89,22 +89,46 @@ Evaluating different control methods for RGB LEDs, including I2C controllers or 
 
 ## **📌 Appendix: KSP Mod Integration for External Hardware**
 ### **Comparison of KSP Mods Supporting External Hardware**
-| **Mod Name**                 | **Communication Method** | **Input Capabilities** | **Output Capabilities** | **Maintenance Status** |
-|------------------------------|--------------------------|------------------------|------------------------|------------------------|
-| **Kerbal Simpit Revamped**   | USB Serial               | SAS, RCS, gear, lights, brakes, action groups, throttle, camera, timewarp | Altitude, velocity, resources, SAS mode, orbit data, target data | Actively maintained |
-| **kRPC**                     | Ethernet (TCP/IP)        | Full vessel control via scripts | Full telemetry, orbital data, automation | Actively maintained |
-| **Telemachus**               | Ethernet (HTTP/WebSocket)| Limited control via web UI | Telemetry, resource monitoring, environment data | Maintenance varies |
-| **Kerbal Telemetry**         | Ethernet (HTTP/WebSocket)| Limited control (future updates planned) | Real-time telemetry, target tracking, 3D positioning | Maintenance varies |
-| **KAPCOM**                   | Ethernet (TCP/IP)        | Mission control-style commands | Real-time telemetry, mission monitoring | Maintenance varies |
-| **SerialIO**                 | USB Serial               | Basic vessel control | Telemetry output | Maintenance varies |
-| **EthernetIO**               | Ethernet (TCP/IP)        | Basic vessel control | Telemetry output | Maintenance varies |
+[Table remains unchanged]
 
-### **Key Considerations**
-- **Kerbal Simpit Revamped**: Best for USB integration; active development.
-- **kRPC**: Best for advanced scripting and automation via Ethernet.
-- **Telemachus/Kerbal Telemetry**: Great for telemetry displays but limited control.
-- **Multiple Mods Possible**: A hybrid approach (e.g., Kerbal Simpit Revamped + kRPC) might offer the best flexibility.
-- **Microcontroller Support for kRPC**: kRPC has C client libraries that could be used for direct microcontroller integration over Ethernet.
+---
+
+## **📌 Appendix: Defining the Project Scope**
+### **What Really Needs to Be in This Project?**
+- Essential **flight controls, throttle, and key spacecraft toggles** (SAS, RCS, lights, landing gear, brakes).
+- **Navigation displays** that enhance real-time decision-making without cluttering in-game UI.
+
+### **What Could Be Handled with a Keyboard/Mouse?**
+- **Map navigation and maneuver planning**
+- **Menu navigation and advanced autopilot settings**
+- **Fine-tuning of non-essential parameters**
+
+### **What Data Display Could Be Offloaded to External Devices?**
+- **Telemetry information on a separate screen (iPad, PC, smartphone) using Telemachus/Kerbal Telemetry**
+- **Docking camera feeds on an external monitor**
+- **Resource tracking and mission planning on a browser window**
+
+---
+
+## **📌 Appendix: Cost Estimation & Fabrication**
+### **Estimated Cost of Components**
+| **Component** | **Estimated Cost** |
+|--------------|----------------|
+| **Teensy 4.1** | ~$30 |
+| **Joysticks (JH-D400X-R4)** | $20-$50 each |
+| **Buttons & Switches** | $1-$5 per unit |
+| **Motorized Potentiometer** | $40-$80 |
+| **OLED Displays** | $15-$40 each |
+| **Miscellaneous Wiring & Components** | $50-$100 |
+
+### **Speculated Total Project Cost**
+- **Basic Build:** ~$200-$300
+- **Advanced Features (more displays, premium materials):** ~$500+
+
+### **Case Fabrication**
+- **Material Options:** Laser-cut acrylic, polycarbonate, or machined metal.
+- **Fabrication Service:** Likely through **SendCutSend** or similar.
+- **Estimated Cost:** Dependent on material thickness and size, starting at ~$100-$200.
 
 ---
 
