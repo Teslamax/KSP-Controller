@@ -11,6 +11,7 @@ This project is structured to support both **experimentation** and **final build
 - 📄 [Comprehensive Proposal](Proposal.md)
 - 📄 [ESP32-S3 vs Teensy 4.1 Comparison](docs/comparison-esp32s3-teensy41.md)
 - 📄 [Pinout & Bill of Materials](hardware/pinout.md)
+-  [Recommended Directory Structure](docs/dev-log.md)
 
 ---
 
