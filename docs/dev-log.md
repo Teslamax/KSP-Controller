@@ -175,5 +175,71 @@ You can evolve this structure over time as firmware, UI, and hardware designs ma
   - Optional motorized throttle (slide pot + H-bridge)
 
 ---
+### 🔄 KSP Simpit Revamped Compatibility (Current Hardware Support)
+
+Your current hardware will support most telemetry "pull" features:
+
+**TFT Display (5691)**:
+- Altitude, velocity, apoapsis/periapsis, SAS mode, time to node, throttle level
+
+**NeoKey 1x4 RGB Buttons (4980)**:
+- Gear, brakes, lights, SAS, RCS state indicators via color
+
+**SD Logging** (planned):
+- Telemetry capture to file (altitude, mission time, etc.)
+
+**(Not Yet Purchased)**:
+- I²C RGB Encoders for camera/SAS feedback
+- Additional OLEDs or segmented indicators for mode views
+
+---
+
+### 🔁 Telemetry Loop Sketch (Firmware Concept)
+
+```cpp
+void loop() {
+  // Check for incoming Simpit messages
+  if (Serial.available()) {
+    parseKSPPacket(Serial.read());
+  }
+
+  // Update displays with last-known data
+  displayTFT.setAltitude(ksp.altitude);
+  displayTFT.setVelocity(ksp.velocity);
+  displayTFT.setThrottle(ksp.throttle);
+  displayTFT.setSASMode(ksp.sasMode);
+
+  // Update NeoKey LEDs based on KSP state
+  updateButtonLEDs(ksp.gear, ksp.brakes, ksp.rcs, ksp.lights);
+
+  // Handle user input (buttons/encoders)
+  processInputs();
+}
+```
+
+---
+
+### 🗺 Example Mapping (`config.json`)
+
+```json
+{
+  "telemetry": {
+    "altitude": "tft.zone1",
+    "velocity": "tft.zone2",
+    "throttle": "tft.zone3",
+    "sasMode": "tft.icon.sas",
+    "gear": "neokey.0",
+    "brakes": "neokey.1",
+    "rcs": "neokey.2",
+    "lights": "neokey.3"
+  }
+}
+```
+
+This allows UI assignments to be changed without rebuilding firmware.
+
+➡️ Next: Add docs/protocols.md to capture HID, serial, and Simpit mapping.
+
+---
 
 ℹ️ These upgrades allow the controller to be reconfigurable via SD card, easier to debug/log, and modular for adding rotary encoders, motorized input devices, and more flexible I²C/GPIO input chains.
