@@ -1,0 +1,5 @@
+"device": {
+  "use_dhcp": true,
+  "mac_override": true,
+  "default_mac": [2, 66, 172, 0, 0, 1]
+}
