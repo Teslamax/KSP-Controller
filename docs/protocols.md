@@ -72,3 +72,39 @@ This allows dynamic reassignment and lightweight UI changes without recompiling 
 
 More integrations (kRPC, Telemachus) can be added later.
 
+
+
+---
+
+## 🧭 MAC Address Convention & Override
+
+The Ethernet FeatherWing (WIZnet W5500) requires that a MAC address be defined in firmware. To avoid conflicts with real network hardware, this project uses a **Locally Administered Address (LAA)** scheme.
+
+### ⚙️ Default MAC Address Format
+
+```
+0x02, 0x42, 0xAC, 0x00, 0x00, 0x01
+```
+
+- `0x02` → Declares it as a Locally Administered Address (LAA)
+- `0x42`, `0xAC` → Reserved for this project
+- Last 3 bytes are configurable
+
+### 🔁 Runtime Override via SD Card
+
+If the file `/config/mac.txt` exists on the SD card, the firmware will attempt to load the MAC address at runtime.
+
+Expected format (colon-separated hex or comma-separated values):
+
+```
+02:42:AC:00:00:01
+```
+
+or
+
+```
+0x02, 0x42, 0xAC, 0x00, 0x00, 0x01
+```
+
+If the file is malformed or missing, the firmware will fall back to the default.
+
