@@ -101,3 +101,22 @@ void setupEthernet(bool useDHCP, byte* mac, IPAddress localIP, IPAddress gateway
   Serial.print(F("🟢 Device IP: "));
   Serial.println(Ethernet.localIP());
 }
+
+
+// Returns a hostname string from config or default
+String getHostnameFromConfig() {
+  File configFile = SD.open("/config/config.json");
+  if (!configFile) {
+    return "ksp-controller";
+  }
+
+  StaticJsonDocument<512> doc;
+  DeserializationError error = deserializeJson(doc, configFile);
+  configFile.close();
+
+  if (error || !doc["device"]["hostname"]) {
+    return "ksp-controller";
+  }
+
+  return String((const char*)doc["device"]["hostname"]);
+}

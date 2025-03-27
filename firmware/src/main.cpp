@@ -2,15 +2,15 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <SD.h>
+#include <EthernetBonjour.h>  // You can use MDNSResponder or EthernetBonjour
 #include "net_config.h"
 
-// Optional static IP settings
+// IP configuration fallback values
 IPAddress localIP(192, 168, 1, 42);
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress dns(1, 1, 1, 1);
 
-// Toggle DHCP usage
 #define USE_DHCP true
 
 void setup() {
@@ -18,7 +18,7 @@ void setup() {
   while (!Serial) { delay(10); }
 
   Serial.println("🚀 KSP Controller Booting...");
-  
+
   if (!SD.begin()) {
     Serial.println("⚠️ SD card failed or not present");
   } else {
@@ -26,22 +26,29 @@ void setup() {
   }
 
   byte mac[6];
-  memcpy(mac, defaultMAC, 6);
+  bool useDHCP = USE_DHCP;
 
-  if (loadMACFromSD(mac)) {
-    Serial.print("📦 Loaded MAC from SD: ");
-    for (int i = 0; i < 6; i++) {
-      Serial.print(mac[i], HEX);
-      if (i < 5) Serial.print(":");
-    }
-    Serial.println();
+  // Load config.json and possibly override MAC and DHCP
+  loadNetworkConfig(useDHCP, mac, localIP, gateway, subnet, dns);
+
+  // Check for MAC override from SD file
+  loadMACFromSD(mac);
+
+  // Set up Ethernet using values from config
+  setupEthernet(useDHCP, mac, localIP, gateway, subnet, dns);
+
+  // Get hostname for mDNS
+  String hostname = getHostnameFromConfig();
+  Serial.print("🌐 Hostname: ");
+  Serial.println(hostname);
+
+  if (EthernetBonjour.begin(hostname.c_str())) {
+    Serial.println("✅ mDNS responder started");
   } else {
-    Serial.println("ℹ️ Using default MAC address");
+    Serial.println("⚠️ Failed to start mDNS");
   }
-
-  setupEthernet(USE_DHCP, mac, localIP, gateway, subnet, dns);
 }
 
 void loop() {
-  // Placeholder loop
+  EthernetBonjour.run(); // Keeps mDNS active
 }
