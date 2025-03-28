@@ -48,13 +48,6 @@ You can evolve this structure over time as firmware, UI, and hardware designs ma
 - USB Mass Storage: Supported
 - Bonus: Built-in real-time clock for log timestamps
 
-### 🚫 Option 3: I²C SD Cards — Not Recommended
-- Too slow and rare, not compatible with USB MSC
-
-### 🧠 Advanced Option: Custom QSPI Flash Chip
-- Cost: ~$2–$5 (plus PCB fabrication)
-- Complex and only suitable for custom boards
-
 ---
 
 ## 🎛 I²C Rotary Encoder Options
@@ -68,12 +61,6 @@ You can evolve this structure over time as firmware, UI, and hardware designs ma
 - Cost: ~$6.95 (knob sold separately)
 - Shaft: **6mm D-shaft** (standard knobs supported)
 - Ideal for experimenting on breadboard, later mountable through a panel
-
-### ⚠️ SparkFun Qwiic Twist
-- Similar feature set (I²C, RGB, pushbutton)
-- Higher price (~$24.95)
-- No knob included
-- Also 6mm D-shaft
 
 ➡️ **Recommended for prototyping and expansion:** Adafruit 4991 (better value, easier stacking)
 
