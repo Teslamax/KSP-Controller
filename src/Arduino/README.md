@@ -50,3 +50,70 @@ When modifying USB descriptors (e.g., to add gamepad or dual CDC), review `usb_d
 - Uses Adafruit hardware and libraries
 - Based on Kerbal Simpit and general USB HID documentation
 
+---
+
+# KSP Controller on Adafruit ESP32-S3 Reverse TFT Feather
+
+This project is a custom controller for *Kerbal Space Program* (KSP), designed around the **Adafruit ESP32-S3 Reverse TFT Feather**. It combines:
+
+- USB HID input (keyboard and gamepad-style joystick)
+- Dual USB CDC ports (debug console + KSP Simpit)
+- Rotary encoders, mechanical switches, RGB backlit keys
+- SD logging, Ethernet, RTC, and TFT display
+
+## Current Status (as of April 1, 2025)
+
+✅ Keyboard HID is implemented with basic support for 4 NeoKey inputs.  
+⚠️ Joystick HID descriptor stub present, not active yet.  
+⚠️ CDC Simpit interface not yet implemented.  
+⚠️ Auto-calibration & motorized throttle support planned, not implemented.  
+
+## HID Plan
+
+- **Keyboard HID**: Custom keymaps with profile switching
+- **Joystick HID** (planned):
+  - 6 analog axes: Pitch, Roll, Yaw, Translate X/Y/Z
+  - 1 analog throttle slider (motorized)
+  - 1 hat switch (POV)
+  - Up to 32 digital buttons
+
+## CDC Plan
+
+- `SerialDebug`: USB CDC port for log/debug output
+- `SerialSimpit`: USB CDC port for Simpit mod in KSP *(future)*
+
+## I/O & Peripherals
+
+| Feature         | Module               |
+|----------------|----------------------|
+| Display        | ST7789 TFT           |
+| SD Card        | microSD on SPI       |
+| Ethernet       | W5500 (SPI)          |
+| RTC            | DS3231               |
+| Buttons        | GPIO + NeoKey (I2C)  |
+| LEDs           | NeoPixel RGB (I2C)   |
+| Storage        | EEPROM for profile   |
+| USB HID        | Native TinyUSB API   |
+
+## Requirements
+
+- Arduino IDE or PlatformIO
+- ESP32 board support (>= 2.0.10)
+- Libraries:
+  - Adafruit GFX, ST7789, BusIO, NeoPixel, Seesaw
+  - ArduinoJson, Ethernet, SD
+  - RTClib, EEPROM, ESPmDNS
+
+## Building
+
+Select the board: `Adafruit ESP32-S3 Reverse TFT Feather`  
+USB Mode: `USB-OTG (TinyUSB)`
+
+Then compile and upload normally via Arduino IDE or PlatformIO.
+
+---
+
+> For more information or future updates, check the `checklist.md` for test status or development tracking.
+
+
+
