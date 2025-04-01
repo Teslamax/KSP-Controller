@@ -109,11 +109,12 @@ This project is a custom controller for *Kerbal Space Program* (KSP), designed a
 Select the board: `Adafruit ESP32-S3 Reverse TFT Feather`  
 USB Mode: `USB-OTG (TinyUSB)`
 
+**Note on USB Header:**
+Use `#include "USB.h"` (with quotes) instead of angle brackets. This ensures the correct ESP32-S3 core internal USB header is used and avoids conflicts with external TinyUSB libraries.
+
 Then compile and upload normally via Arduino IDE or PlatformIO.
 
 ---
 
 > For more information or future updates, check the `checklist.md` for test status or development tracking.
-
-
 
