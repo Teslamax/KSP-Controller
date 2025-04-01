@@ -1,51 +1,42 @@
-# KSP Controller Functional Test Checklist
-
-This checklist helps validate individual hardware and software features of the KSP Controller project based on the ESP32-S3 Reverse TFT Feather board.
-
-## General Instructions
-- Flash the current build to the device
-- Confirm each function in isolation where possible
-- Mark the tested result with ✅ (working), ⚠️ (partially working), ❌ (not working)
-- Add notes as needed for troubleshooting or retesting
-
----
+# KSP Controller – Feature Checklist
 
 ## USB Interfaces
-- [ ] **CDC Debug Serial (SerialDebug)** — Confirm appearance as USB serial device and output during boot
-- [ ] **USB Keyboard HID** — Verify keypresses from NeoKey result in input on host system
-- [ ] **USB Gamepad HID (stub only)** — Confirm enumeration (no test needed yet)
-- [ ] **(Planned) CDC Simpit Serial** — Not implemented yet
 
-## Input Devices
-- [ ] **NeoKey 4-key detection** — Press each key and verify feedback (USB or visual)
-- [ ] **Button D1 (Profile +)** — Confirm profile increment and color change
-- [ ] **Button D2 (Profile -)** — Confirm profile decrement and color change
+| Interface       | Type     | Status      | Notes                                |
+|----------------|----------|-------------|--------------------------------------|
+| SerialDebug     | CDC      | ✅ Working  | Logging/debug via USB                |
+| SerialSimpit    | CDC      | 🔲 Planned  | To be used with Kerbal Simpit Mod    |
+| Keyboard HID    | HID      | ✅ Working  | NeoKey 1x4 tested + custom keymap    |
+| Joystick HID    | HID      | 🔲 Stub     | Descriptor ready, not yet active     |
 
-## Output Devices
-- [ ] **NeoPixel RGB Feedback** — Check colors match profiles
-- [ ] **ST7789 TFT Screen** — Confirm display initializes and text is visible
-  - [ ] Profile Name
-  - [ ] MAC Address
-  - [ ] Log messages
+## HID Devices (Planned)
 
-## Storage & Logging
-- [ ] **microSD Card Mount** — Card is detected, files can be opened
-- [ ] **Read /network.json** — Confirm MAC address override from SD
-- [ ] **Logging to SerialDebug** — Ensure log messages appear
+| Feature          | Type     | Status    | Notes                                           |
+|------------------|----------|-----------|-------------------------------------------------|
+| 6 Axis Joystick  | Analog   | 🔲 Planned | Pitch, Roll, Yaw, Translate X/Y/Z              |
+| Throttle Slider  | Analog   | 🔲 Planned | Motorized for auto-calibration + reflect state |
+| POV Hat Switch   | Digital  | 🔲 Planned | 8-way or 4-way directional control             |
+| 32 Buttons       | Digital  | 🔲 Planned | Matrix scanning or I2C GPIO                    |
 
-## Networking
-- [ ] **Ethernet Init with MAC** — MAC comes from EEPROM, SD, or fallback
-- [ ] **DHCP Works** — IP obtained from router
-- [ ] **Static IP Fallback** — Used when DHCP fails
-- [ ] **mDNS Hostname** — Accessible via `ksp-controller.local`
-- [ ] **NTP Sync** — Log timestamp matches network time
+## Hardware Modules
 
-## EEPROM
-- [ ] **MAC Storage** — Written and read correctly
-- [ ] **Profile Restore on Boot** — Profile persists across resets
-
-## Notes
-_(Add any test-related issues, reboots, freezes, or debug print anomalies here)_
+| Component       | Status      | Notes                                  |
+|----------------|-------------|----------------------------------------|
+| ST7789 TFT      | ✅ Working  | Used for status/log display            |
+| RTC DS3231      | ✅ Working  | Auto-adjusts if clock lost power       |
+| SD Logging      | ✅ Working  | Reads network config + logs (planned) |
+| Ethernet (W5500)| ✅ Working  | DHCP/Static IP + mDNS                  |
+| EEPROM          | ✅ Working  | Stores profile number                  |
+| NeoKey 1x4      | ✅ Working  | Interrupt-driven input + NeoPixel RGB  |
+| 2x GPIO Buttons | ✅ Working  | Used for profile change                |
 
 ---
-*This checklist is synced with the README and development goals.*
+
+## Next Steps
+
+- [ ] Add USB HID Gamepad report descriptor
+- [ ] Build joystick input system for analog axes
+- [ ] Implement motorized throttle test driver
+- [ ] Add Simpit CDC handler + message parser
+- [ ] Add profile save/load to SD config
+
