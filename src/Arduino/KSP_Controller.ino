@@ -21,13 +21,15 @@
 #include <Adafruit_NeoPixel.h>
 #include <ArduinoJson.h>
 #include "HID_Keycodes.h"  // External key definitions based on USB HID Usage Tables
+#include <Adafruit_TinyUSB.h>  // ESP32-S3 native TinyUSB wrapper (built-in)
 
-#include "USB.h"         // Native USB stack for ESP32-S3
-#include "USBHIDDevice.h"
-#include "USBKeyboard.h"
+Adafruit_USBD_CDC SerialDebug;  // Logging/debug port
+Adafruit_USBD_HID usb_hid;      // USB HID device (keyboard for now)
 
-USBHIDDevice hid;
-USBKeyboard Keyboard(hid);
+// Keyboard HID descriptor
+static const uint8_t hid_report_descriptor[] = {
+  TUD_HID_REPORT_DESC_KEYBOARD()
+};
 
 #define SD_CS    10
 #define ETH_CS   5
