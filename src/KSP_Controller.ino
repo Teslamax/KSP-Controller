@@ -1,8 +1,7 @@
-// feather_ksp_stack.ino (clean version - ESP32-S3 native USB with Adafruit TinyUSB HID + CDC support)
-// NOTE: This version uses Adafruit TinyUSB 3.4.4 which does NOT include `Adafruit_TinyUSB_Keyboard.h`.
-// Instead, HID keycodes are manually defined below for compatibility and clarity.
-// Future plans include adding joystick/gamepad HID reports and support for Kerbal Simpit protocol.
-// CDC SerialDebug is used for log output; SerialSimpit is reserved for Simpit data transport.
+// feather_ksp_stack.ino (clean version - ESP32-S3 native USB with TinyUSB HID + CDC support)
+// NOTE: This version uses the ESP32-S3 native TinyUSB stack.
+// HID keycodes are defined inline for compatibility (see #define HID_KEY_*). No Adafruit_TinyUSB.h is required.
+// Future plans: add joystick/gamepad HID reports + Simpit serial support.
 
 #include <esp_system.h>
 #include <esp_mac.h>
@@ -21,8 +20,9 @@
 #include <EEPROM.h>
 #include <Adafruit_NeoPixel.h>
 #include <ArduinoJson.h>
-#include <Adafruit_TinyUSB.h>  // HID + CDC classes
+// Removed: #include <Adafruit_TinyUSB.h>  // Not needed with native ESP32-S3 stack
 
+// Basic HID key definitions (USB HID Usage Tables)
 #define HID_KEY_A 0x04
 #define HID_KEY_B 0x05
 #define HID_KEY_C 0x06
@@ -117,6 +117,11 @@ uint32_t profileColors[] = {
   neopixels.Color(255, 255, 0)
 };
 const uint8_t totalProfiles = 4;
+
+// ... remainder of the code unchanged
+
+// definitions done
+
 void log(String msg) {
   time_t now = time(nullptr);
   char ts[20] = "NO_TIME";
