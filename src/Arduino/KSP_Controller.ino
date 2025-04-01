@@ -22,6 +22,13 @@
 #include <ArduinoJson.h>
 #include "HID_Keycodes.h"  // External key definitions based on USB HID Usage Tables
 
+#include "USB.h"         // Native USB stack for ESP32-S3
+#include "USBHIDDevice.h"
+#include "USBKeyboard.h"
+
+USBHIDDevice hid;
+USBKeyboard Keyboard(hid);
+
 #define SD_CS    10
 #define ETH_CS   5
 #define TFT_CS   9
@@ -61,22 +68,6 @@ Adafruit_seesaw neokey;
 Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
 Adafruit_NeoPixel neopixels(4, NEOKEY_ADDR + 1, NEO_GRB + NEO_KHZ800);
 
-// Temporarily remove Adafruit_USBD_* references until library is resolved
-//#include <Adafruit_TinyUSB.h>
-//#include <Adafruit_TinyUSB_Keyboard.h>
-//#include <Adafruit_TinyUSB_ArduinoHID.h>
-//#include <Adafruit_TinyUSB_Gamepad.h>  // Future plan for joystick HID
-//#include <Adafruit_USBD_CDC.h>
-//#include <Adafruit_USBD_HID.h>
-//Adafruit_USBD_CDC SerialDebug;
-//Adafruit_USBD_CDC SerialSimpit;
-//Adafruit_USBD_HID usb_hid;
-
-//static const uint8_t desc_hid_report[] = {
-//  TUD_HID_REPORT_DESC_KEYBOARD(),
-//  TUD_HID_REPORT_DESC_GAMEPAD()  // Stub for joystick/gamepad HID
-//};
-
 bool rtcAvailable = false;
 bool sdAvailable = false;
 bool ethAvailable = false;
@@ -102,7 +93,7 @@ uint32_t profileColors[] = {
 };
 const uint8_t totalProfiles = 4;
 
-// ... remainder of the code unchanged
+// Gamepad HID stub descriptor can be added here later
 
 // definitions done
 
