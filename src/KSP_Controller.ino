@@ -1,6 +1,6 @@
 // feather_ksp_stack.ino (clean version - ESP32-S3 native USB with TinyUSB HID + CDC support)
 // NOTE: This version uses the ESP32-S3 native TinyUSB stack.
-// HID keycodes are defined inline for compatibility (see #define HID_KEY_*). No Adafruit_TinyUSB.h is required.
+// HID keycodes moved to external file: HID_Keycodes.h
 // Future plans: add joystick/gamepad HID reports + Simpit serial support.
 
 #include <esp_system.h>
@@ -20,31 +20,7 @@
 #include <EEPROM.h>
 #include <Adafruit_NeoPixel.h>
 #include <ArduinoJson.h>
-// Removed: #include <Adafruit_TinyUSB.h>  // Not needed with native ESP32-S3 stack
-
-// Basic HID key definitions (USB HID Usage Tables)
-#define HID_KEY_A 0x04
-#define HID_KEY_B 0x05
-#define HID_KEY_C 0x06
-#define HID_KEY_D 0x07
-#define HID_KEY_E 0x08
-#define HID_KEY_F 0x09
-#define HID_KEY_G 0x0A
-#define HID_KEY_H 0x0B
-#define HID_KEY_Q 0x14
-#define HID_KEY_R 0x15
-#define HID_KEY_S 0x16
-#define HID_KEY_T 0x17
-#define HID_KEY_W 0x1A
-#define HID_KEY_X 0x1B
-#define HID_KEY_Y 0x1C
-#define HID_KEY_Z 0x1D
-#define HID_KEY_1 0x1E
-#define HID_KEY_2 0x1F
-#define HID_KEY_3 0x20
-#define HID_KEY_4 0x21
-#define HID_KEY_5 0x22
-#define HID_KEY_6 0x23
+#include "HID_Keycodes.h"  // External key definitions based on USB HID Usage Tables
 
 #define SD_CS    10
 #define ETH_CS   5
@@ -85,13 +61,14 @@ Adafruit_seesaw neokey;
 Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
 Adafruit_NeoPixel neopixels(4, NEOKEY_ADDR + 1, NEO_GRB + NEO_KHZ800);
 
-Adafruit_USBD_CDC SerialDebug;
-Adafruit_USBD_CDC SerialSimpit;
-Adafruit_USBD_HID usb_hid;
+// Temporarily remove Adafruit_USBD_* references until library is resolved
+// Adafruit_USBD_CDC SerialDebug;
+// Adafruit_USBD_CDC SerialSimpit;
+// Adafruit_USBD_HID usb_hid;
 
-static const uint8_t desc_hid_report[] = {
-  TUD_HID_REPORT_DESC_KEYBOARD()
-};
+// static const uint8_t desc_hid_report[] = {
+//   TUD_HID_REPORT_DESC_KEYBOARD()
+// };
 
 bool rtcAvailable = false;
 bool sdAvailable = false;
@@ -117,8 +94,6 @@ uint32_t profileColors[] = {
   neopixels.Color(255, 255, 0)
 };
 const uint8_t totalProfiles = 4;
-
-// ... remainder of the code unchanged
 
 // definitions done
 
