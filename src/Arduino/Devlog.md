@@ -60,6 +60,9 @@ This project implements a USB-HID and network-connected controller for Kerbal Sp
 - **TinyUSB:** Built-in (TinyUSB-OTG mode selected)
 - **Arduino IDE:** Currently used, open to PlatformIO/CLI
 
+### Important USB Header Note
+- On ESP32-S3, **you must use** `#include "USB.h"` (with double quotes) instead of `<USB.h>`. This ensures the correct built-in TinyUSB support from the ESP32 Arduino core is used and avoids conflicts with external TinyUSB libraries like Adafruit_TinyUSB.
+
 ## Future Plans
 - [ ] Dual CDC (Simultaneous debug + Simpit Serial)
 - [ ] USB Gamepad HID descriptor with 6-axis + throttle support
