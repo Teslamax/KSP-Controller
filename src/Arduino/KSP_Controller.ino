@@ -21,7 +21,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <ArduinoJson.h>
 #include "HID_Keycodes.h"  // External key definitions based on USB HID Usage Tables
-#include <Adafruit_TinyUSB.h>  // ESP32-S3 native TinyUSB wrapper (built-in)
+#include "USB.h"            // ✅ Use ESP32-S3's native TinyUSB API header (replaces Adafruit_TinyUSB.h)
 
 Adafruit_USBD_CDC SerialDebug;  // Logging/debug port
 Adafruit_USBD_HID usb_hid;      // USB HID device (keyboard for now)
