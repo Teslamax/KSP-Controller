@@ -1,10 +1,8 @@
+// feather_ksp_stack.ino (clean version - ESP32-S3 native USB with Adafruit TinyUSB HID + CDC support)
 
-// feather_ksp_stack.ino (complete version)
-
-#include "esp_system.h"
-#include "esp_mac.h"
-#include "esp_wifi.h"
-#include "esp_system.h"
+#include <esp_system.h>
+#include <esp_mac.h>
+#include <esp_wifi.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <SD.h>
@@ -15,16 +13,12 @@
 #include <Adafruit_ST7789.h>
 #include <Adafruit_BusIO_Register.h>
 #include <ESPmDNS.h>
-//#include "Adafruit_TinyUSB.h"
-//#include "Adafruit_USBHID.h"
-//#include "Adafruit_USB_HID.h"
-//using namespace arduino;
-//#include "Adafruit_TinyUSB_Keyboard.h"
-//#include "Adafruit_TinyUSB_ArduinoHID.h"
 #include <time.h>
 #include <EEPROM.h>
 #include <Adafruit_NeoPixel.h>
 #include <ArduinoJson.h>
+#include <Adafruit_TinyUSB.h>  // HID + CDC classes
+#include <Adafruit_TinyUSB_Keyboard.h>  // Optional (not used directly, but useful for constants)
 
 #define SD_CS    10
 #define ETH_CS   5
@@ -40,9 +34,9 @@ IPAddress GATEWAY(192, 168, 1, 254);
 IPAddress SUBNET(255, 255, 255, 0);
 IPAddress DNS_SERVERS[4] = {
   IPAddress(192, 168, 1, 254),
-  IPAddress(1, 1, 1, 1),
-  IPAddress(8, 8, 8, 8),
-  IPAddress(8, 8, 4, 4)
+  IPAddress(192, 168, 1, 6),
+  IPAddress(192, 168, 1, 53),
+  IPAddress(192, 168, 1, 32)
 };
 byte ETH_MAC[6];
 const char* MDNS_HOSTNAME = "ksp-controller";
@@ -65,16 +59,14 @@ Adafruit_seesaw neokey;
 Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
 Adafruit_NeoPixel neopixels(4, NEOKEY_ADDR + 1, NEO_GRB + NEO_KHZ800);
 
-Adafruit_USBD_CDC SerialDebug;
-Adafruit_USBD_CDC SerialSimpit;
-
-#if CFG_TUD_HID
+Adafruit_USBD_CDC SerialDebug;   // Debug output port
+Adafruit_USBD_CDC SerialSimpit;  // Optional for Simpit protocol in future
 Adafruit_USBD_HID usb_hid;
 
-static uint8_t const desc_hid_report[] = {
+static const uint8_t desc_hid_report[] = {
   TUD_HID_REPORT_DESC_KEYBOARD()
+  // You can add other HID descriptors like gamepad or joystick here later
 };
-#endif
 
 bool rtcAvailable = false;
 bool sdAvailable = false;
@@ -82,6 +74,7 @@ bool ethAvailable = false;
 bool tftAvailable = false;
 bool neokeyAvailable = false;
 
+// Use TinyUSB keycodes from Adafruit_TinyUSB_Keyboard.h
 uint8_t keymap[6] = { HID_KEY_1, HID_KEY_2, HID_KEY_3, HID_KEY_4, HID_KEY_5, HID_KEY_6 };
 bool buttonState[6] = {false};
 
@@ -100,8 +93,6 @@ uint32_t profileColors[] = {
   neopixels.Color(255, 255, 0)
 };
 const uint8_t totalProfiles = 4;
-
-//extern "C" void esp_read_mac(uint8_t* mac, uint32_t type);
 
 void log(String msg) {
   time_t now = time(nullptr);
@@ -134,19 +125,8 @@ void setProfile(uint8_t profile) {
   }
 }
 
-/*
-Compilation Errors Breakdown 
-
-These functions are only available if you manually create descriptors with TinyUSB.
-The Adafruit_USBD_CDC class does not expose these by default in current stable Adafruit board packages.
-*/
-
 void setup() {
-//  SerialDebug.setManufacturerDescriptor("Feather USB Logger");
-//  SerialDebug.setProductDescriptor("Feather Debug Port");
   SerialDebug.begin(115200);
-//  SerialSimpit.setManufacturerDescriptor("Feather Simpit USB");
-//  SerialSimpit.setProductDescriptor("Feather Simpit Port");
   SerialSimpit.begin(115200);
   while (!SerialDebug) delay(10);
 
@@ -192,7 +172,7 @@ void setup() {
 
   Ethernet.init(ETH_CS);
   if (ETH_MAC[0] == 0 && ETH_MAC[1] == 0) memcpy(ETH_MAC, configEEPROM.mac, 6);
-  if (ETH_MAC[0] == 0 && ETH_MAC[1] == 0) esp_read_mac(ETH_MAC, ESP_MAC_ETH);  // ✅ Correct!
+  if (ETH_MAC[0] == 0 && ETH_MAC[1] == 0) esp_read_mac(ETH_MAC, ESP_MAC_ETH);
 
   if (configEEPROM.forceStatic) {
     Ethernet.begin(ETH_MAC, configEEPROM.ip, configEEPROM.dns, configEEPROM.gateway, SUBNET);
@@ -225,27 +205,19 @@ void setup() {
   pinMode(BUTTON_PIN_1, INPUT_PULLUP);
   pinMode(BUTTON_PIN_2, INPUT_PULLUP);
 
- 
-
   usb_hid.setReportDescriptor(desc_hid_report, sizeof(desc_hid_report));
   usb_hid.setPollInterval(2);
   usb_hid.setBootProtocol(true);
   usb_hid.begin();
- 
-  TinyUSBDevice.begin();
 
+  TinyUSBDevice.begin();
 }
 
 void sendKey(uint8_t keycode, bool pressed) {
   uint8_t report[8] = { 0 };  // HID report: modifier, reserved, key[6]
-
-  if (pressed) {
-    report[2] = keycode;
-  }
-
+  if (pressed) report[2] = keycode;
   usb_hid.sendReport(0, report, sizeof(report));
 }
-
 
 void loop() {
   if (neokeyAvailable) {
@@ -254,10 +226,7 @@ void loop() {
       bool pressed = !(buttons & (1 << i));
       if (pressed != buttonState[i]) {
         buttonState[i] = pressed;
-        //#if CFG_TUD_HID
-        if (pressed) sendKey(keymap[i], true);
-        else sendKey(keymap[i], false);
-        //#endif
+        sendKey(keymap[i], pressed);
       }
     }
   }
