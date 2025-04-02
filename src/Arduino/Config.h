@@ -1,22 +1,31 @@
+
 #ifndef CONFIG_H
 #define CONFIG_H
-
 #include <Arduino.h>
-#include <Wire.h>
-#include <EEPROM.h>
-#include <Adafruit_NeoPixel.h>
-
-#define SD_CS    10
-#define ETH_CS   5
-#define TFT_CS   9
-#define TFT_DC   7
-#define TFT_RST  6
-#define NEOKEY_ADDR 0x30
-#define BUTTON_PIN_1 1
-#define BUTTON_PIN_2 2
+#include <Ethernet.h>
 
 extern uint8_t currentProfile;
-extern Adafruit_NeoPixel neopixels;
-extern const uint32_t profileColors[4];
+extern byte ETH_MAC[6];
+extern bool ethAvailable;
+
+extern IPAddress STATIC_IP;
+extern IPAddress GATEWAY;
+extern IPAddress SUBNET;
+extern IPAddress DNS_SERVERS[4];
+
+extern const char* MDNS_HOSTNAME;
+
+struct NetConfig {
+  uint8_t profile;
+  bool useStatic;
+  bool hasStaticIP;
+  IPAddress ip;
+  IPAddress gateway;
+  IPAddress dns;
+  byte mac[6];
+  bool forceStatic;
+};
+
+extern struct NetConfig configEEPROM;
 
 #endif

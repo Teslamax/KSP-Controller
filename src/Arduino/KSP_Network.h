@@ -6,6 +6,7 @@
 #include <Arduino.h>
 #include <Ethernet.h>
 #include <RTClib.h>
+#include <SD.h>
 
 // External EEPROM config struct
 struct NetConfig {
