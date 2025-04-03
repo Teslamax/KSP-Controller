@@ -10,7 +10,7 @@ This project is structured to support both **experimentation** and **final build
 
 - 📄 [Comprehensive Proposal](Proposal.md)
 - 📄 [ESP32-S3 vs Teensy 4.1 Comparison](docs/comparison-esp32s3-teensy41.md)
-- 📄 [Pinout & Bill of Materials](hardware/pinout.md)
+- 📄 [Pinout & Bill of Materials](docs/hardware/pinout.md)
 - 📄 [Recommended Directory Structure](docs/dev-log.md)
 
 ---
@@ -18,6 +18,7 @@ This project is structured to support both **experimentation** and **final build
 ## 🧪 Firmware Source
 
 The PlatformIO-based firmware project lives in the [`firmware/`](firmware/) folder.
+The hybrid PlatformIO/Arduino IDE firmware project is inside `/src/`.
 
 **Current Features:**
 - Built-in TFT menu UI (ESP32-S3 Reverse TFT Feather)
@@ -43,7 +44,7 @@ pio run -t upload
 - Feather Doubler + stacking headers
 - BOJACK breadboard kit (Amazon)
 
-See [`hardware/BOM.md`](hardware/pinout.md) for full list.
+See [`docs/hardware/BOM.md`](docs/hardware/BOM.md) for full list.
 
 ---
 
