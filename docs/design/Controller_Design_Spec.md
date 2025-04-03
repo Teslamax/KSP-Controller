@@ -1,4 +1,4 @@
-# **Comprehensive Project Proposal: KSP & Space Simulation Controller**
+# ** KSP & Space Simulation Controller — System Design Specification**
 
 ## **📌 Project Overview**
 This document outlines the design, features, and integration of a **custom-built space simulation controller** for **Kerbal Space Program (KSP)** and other space-based games. It includes UI/UX design, power considerations, microcontroller selection, feature implementation, and software integration with KSP mods.
@@ -137,6 +137,20 @@ Evaluating different control methods for RGB LEDs, including I2C controllers or 
 - **Material Options:** Laser-cut acrylic, polycarbonate, or machined metal.
 - **Fabrication Service:** Likely through **SendCutSend** or similar.
 - **Estimated Cost:** Dependent on material thickness and size, starting at ~$100-$200.
+
+---
+
+## 📌 Appendix: Microcontroller Platform Evolution
+
+As the project evolves, different microcontroller platforms are being evaluated. While the **Teensy 4.1** was initially selected for its strong USB-HID and Ethernet support, recent experimentation with other boards (such as the **ESP32-S3 Reverse TFT Feather**) may influence the final design.
+
+| Stage           | Microcontroller              | Reasoning / Notes |
+|-----------------|------------------------------|-------------------|
+| **Initial Plan**    | **Teensy 4.1**                  | Chosen for native USB-HID, Ethernet support, high-speed processing, and strong Arduino library compatibility. |
+| **Current Testing** | **ESP32-S3 Reverse TFT Feather** | Being used for prototyping. Offers native USB, built-in TFT, wireless, and excellent library support. Evaluating its suitability as the final platform. |
+| **Final Decision**  | *To Be Determined*             | Will be based on performance, integration complexity, and I/O requirements. Trade-offs between Teensy and ESP32 will be documented. |
+
+> **Note:** Firmware development is proceeding on the ESP32-S3 board for now, but abstraction layers will help preserve compatibility with alternate hardware if needed.
 
 ---
 
