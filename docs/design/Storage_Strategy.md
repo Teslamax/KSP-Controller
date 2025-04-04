@@ -98,6 +98,30 @@ This document outlines the various storage options available on the ESP32-S3 Rev
 
 Let me know if you want this integrated with an existing doc later or refactored by storage type instead of task!
 
+
+---
+
+## 🔁 Write-Cycle and Endurance Notes
+
+| Storage Type | API           | Write Endurance        | Notes |
+|--------------|---------------|------------------------|-------|
+| Flash (Internal) | `Preferences.h` | ~10,000 writes per 4KB sector | Wear leveling not automatic. Avoid frequent writes to same keys. |
+| Flash (Internal) | `EEPROM.h`      | ~10,000 writes per 4KB sector | Requires manual `.commit()`; same wear limits as Preferences. |
+| Flash (Internal) | `LittleFS`      | Moderate (varies by chip)    | Use with care for logging. Avoid frequent rewrites of same file. |
+| SD Card         | `SD.h` / `SdFat.h` | Depends on card quality      | High-endurance cards recommended for logging. Usually 100k+ writes per block. |
+
+---
+
+
+## 🧩 Initialization & Mounting Notes
+
+- `Preferences.h`: No mounting required. Key/value namespace system, safe for quick use.
+- `EEPROM.h`: Requires `.begin(size)` and `.commit()` to finalize writes. Not atomic.
+- `LittleFS`: Requires mounting (`LittleFS.begin()`) and optional formatting if first time.
+- `SD.h`: Automatically mounts on `.begin(cs_pin)` but limited performance.
+- `SdFat.h`: Must match card type (FAT16/32 or exFAT); fast but requires correct settings (e.g., SPI speed).
+
+Be aware that improper initialization or failed mounting can crash or silently fail. Always check return values.
 ---
 
 ## 📝 Notes
@@ -105,3 +129,14 @@ Let me know if you want this integrated with an existing doc later or refactored
 - Always **flush buffers** for log safety on SD (`file.flush()` or `fs.close()`).
 - Use **`Preferences`** over `EEPROM` for new projects.
 - Prefer **LittleFS** over SPIFFS if available.
+
+---
+
+## 🧪 Example Use Cases
+
+- `preferences_demo.ino`: Demonstrates reading/writing scalar values using `Preferences.h`.
+- `eeprom_config.ino`: Legacy-style EEPROM storage (must call `.commit()`).
+- `lfs_config_load.ino`: Loads and parses JSON config from `LittleFS`.
+- `sd_logging.ino`: Writes time-stamped logs to an SD card using `SdFat`.
+
+You can place these in `/firmware/examples/storage/` to organize test/demo code.
