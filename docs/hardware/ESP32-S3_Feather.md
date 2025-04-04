@@ -13,6 +13,7 @@
 - GPIO10: CS (used for Ethernet or SPI device)
 - GPIO36, 35, 37: SPI (MOSI, MISO, SCK)
 - GPIO21: SD Card CS (on Adalogger)
+
 | GPIO | Pin # | Notes |
 |---|---|---|
 | GPIO | | Usable for general I/O|
