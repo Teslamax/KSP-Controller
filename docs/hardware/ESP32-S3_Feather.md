@@ -7,13 +7,6 @@
 
 ## GPIO Overview
 
-- GPIO0–19, 21, 33–48: Usable for general I/O
-- GPIO6: I2C SCL0 (used for QT port)
-- GPIO5: I2C SDA0 (used for QT port)
-- GPIO10: CS (used for Ethernet or SPI device)
-- GPIO36, 35, 37: SPI (MOSI, MISO, SCK)
-- GPIO21: SD Card CS (on Adalogger)
-
 | GPIO | Pin # | Notes |
 |---|---|---|
 | `00`-`19` | | Usable for general I/O|
@@ -26,6 +19,7 @@
 | `35` | | `SPI`:`MISO`|
 | `37` | | `SPI`:`SCK`|
 | `21` | | SD Card `CS` (on Adalogger) |
+| `40`-`47` | | built-in TFT |
 
 ## Notes
 
