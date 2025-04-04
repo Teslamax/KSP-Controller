@@ -68,18 +68,18 @@ This document outlines the various storage options available on the ESP32-S3 Rev
 
 | Task / Use Case              | Best API             | Storage     | Rationale / Notes |
 |-----------------------------|----------------------|-------------|-------------------|
-| Firmware and binaries       | *N/A (platform-managed)* | 🔒 Flash | Stored in flash via OTA or bootloader; can't use SD |
-| Boot mode & startup flags   | `Preferences.h`      | 🔒 Flash     | Very limited writes; suitable for preferences |
 | Boot state, flags           | `Preferences.h`      | 🔒 Flash     | Stored in internal flash; safe to write infrequently; persistent & atomic |
 | Current profile ID          | `Preferences.h`      | 🔒 Flash     | Small scalar setting; fast access |
-| Static assets (fonts/images)| `LittleFS`           | 🔒 Flash     | Persistent and fast reads for UI |
-| HID profile (current only)  | `Preferences.h`      | 🔒 Flash     | Fast, atomic access for switching profiles |
 | All profile data (JSON)     | `LittleFS` or `SD.h` | 🔄 Flash / 💾 SD | Flash for fast access; SD for storage capacity and versioning |
-| Backup files (e.g. configs) | `SD.h` or `LittleFS` | 🔄 Flash / 💾 SD | Choose based on file size and how often backups occur |
-| JSON config & backups       | `SD.h` or `LittleFS` | 🔄 Flash / 💾 SD | JSON is flexible; SD allows offloading backups |
 | Debug logs                  | `SdFat.h`            | 💾 SD        | Frequent or high-volume writes; SD is removable |
+| Backup files (e.g. configs) | `SD.h` or `LittleFS` | 🔄 Flash / 💾 SD | Choose based on file size and how often backups occur |
+| Static assets (fonts/images)| `LittleFS`           | 🔒 Flash     | Persistent and fast reads for UI |
 | Asset streaming (media)     | `SD.h` or `SdFat.h`  | 💾 SD        | Use SD for size capacity and removable access |
+| Firmware and binaries       | *N/A (platform-managed)* | 🔒 Flash | Stored in flash via OTA or bootloader; can't use SD |
+| HID profile (current only)  | `Preferences.h`      | 🔒 Flash     | Fast, atomic access for switching profiles |
 | HID profiles (all saved)    | `SD.h`               | 💾 SD        | Versionable, large, external storage |
+| JSON config & backups       | `SD.h` or `LittleFS` | 🔄 Flash / 💾 SD | JSON is flexible; SD allows offloading backups |
+| Boot mode & startup flags   | `Preferences.h`      | 🔒 Flash     | Very limited writes; suitable for preferences |
 
 **Legend:**
 - 🔒 Flash
@@ -98,30 +98,6 @@ This document outlines the various storage options available on the ESP32-S3 Rev
 
 Let me know if you want this integrated with an existing doc later or refactored by storage type instead of task!
 
-
----
-
-## 🔁 Write-Cycle and Endurance Notes
-
-| Storage Type | API           | Write Endurance        | Notes |
-|--------------|---------------|------------------------|-------|
-| Flash (Internal) | `Preferences.h` | ~10,000 writes per 4KB sector | Wear leveling not automatic. Avoid frequent writes to same keys. |
-| Flash (Internal) | `EEPROM.h`      | ~10,000 writes per 4KB sector | Requires manual `.commit()`; same wear limits as Preferences. |
-| Flash (Internal) | `LittleFS`      | Moderate (varies by chip)    | Use with care for logging. Avoid frequent rewrites of same file. |
-| SD Card         | `SD.h` / `SdFat.h` | Depends on card quality      | High-endurance cards recommended for logging. Usually 100k+ writes per block. |
-
----
-
-
-## 🧩 Initialization & Mounting Notes
-
-- `Preferences.h`: No mounting required. Key/value namespace system, safe for quick use.
-- `EEPROM.h`: Requires `.begin(size)` and `.commit()` to finalize writes. Not atomic.
-- `LittleFS`: Requires mounting (`LittleFS.begin()`) and optional formatting if first time.
-- `SD.h`: Automatically mounts on `.begin(cs_pin)` but limited performance.
-- `SdFat.h`: Must match card type (FAT16/32 or exFAT); fast but requires correct settings (e.g., SPI speed).
-
-Be aware that improper initialization or failed mounting can crash or silently fail. Always check return values.
 ---
 
 ## 📝 Notes
@@ -129,14 +105,3 @@ Be aware that improper initialization or failed mounting can crash or silently f
 - Always **flush buffers** for log safety on SD (`file.flush()` or `fs.close()`).
 - Use **`Preferences`** over `EEPROM` for new projects.
 - Prefer **LittleFS** over SPIFFS if available.
-
----
-
-## 🧪 Example Use Cases
-
-- `preferences_demo.ino`: Demonstrates reading/writing scalar values using `Preferences.h`.
-- `eeprom_config.ino`: Legacy-style EEPROM storage (must call `.commit()`).
-- `lfs_config_load.ino`: Loads and parses JSON config from `LittleFS`.
-- `sd_logging.ino`: Writes time-stamped logs to an SD card using `SdFat`.
-
-You can place these in `/firmware/examples/storage/` to organize test/demo code.
