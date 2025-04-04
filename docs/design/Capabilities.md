@@ -1,15 +1,6 @@
 # KSP-Controller Capabilities Matrix
 
-## Hardware Interfaces
 
-| Interface | Count | Notes                          |
-|-----------|-------|--------------------------------|
-| GPIO      | ~30+  | Available after peripherals     |
-| I2C       | 2     | I2C0 for NeoKey, RTC            |
-| SPI       | 4     | Shared for SD, Ethernet         |
-| UART      | 3     | One for USB-CDC, one open       |
-| USB       | 1     | Supports HID, CDC, MSC          |
-| ADC       | 6+    | Analog for pots/sliders         |
 
 ## Software Features
 
