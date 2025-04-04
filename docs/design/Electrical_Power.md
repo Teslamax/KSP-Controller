@@ -1,5 +1,5 @@
 # Electrical Power
---
+---
 
 ## 🧠 Wiring & Power Overview
 
@@ -22,7 +22,7 @@ This document summarizes the wiring and power distribution plan based on the ESP
 - `Ethernet FeatherWing`: SPI + CS on GPIO 14
 - `Adalogger FeatherWing`: SPI + CS on GPIO 10
 
---
+---
 
 ## ⚡ Estimated Power Draw
 
