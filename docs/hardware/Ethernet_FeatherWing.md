@@ -6,8 +6,8 @@
 
 ## Pin Usage (suggested)
 
-- CS: GPIO10 (customizable)
-- SPI: Shared with SD (MOSI, MISO, SCK)
+- `CS`: `GPIO10` (customizable - *changing to `GPIO09`*)
+- `SPI`: Shared with SD (`MOSI`, `MISO`, `SCK`)
 
 ## Notes
 
