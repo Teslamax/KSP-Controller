@@ -7,8 +7,8 @@
 
 ## GPIO Overview
 
-|: GPIO :|: Pin # :|: Notes :|
-|---|---|---|
+| GPIO | Pin # | Notes |
+|:---:|:---:|---|
 | `00`-`19` | | Usable for general I/O|
 | `21` | | Usable for general I/O|
 | `33`-`48` | | Usable for general I/O|
