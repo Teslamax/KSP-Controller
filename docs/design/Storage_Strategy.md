@@ -104,3 +104,21 @@ This document outlines the various storage options available on the ESP32-S3 Rev
 - Always **flush buffers** for log safety on SD (`file.flush()` or `fs.close()`).
 - Use **`Preferences`** over `EEPROM` for new projects.
 - Prefer **LittleFS** over SPIFFS if available.
+---
+
+## ⚙️ Recommendations by Task
+
+| Task | Best API | Storage | Notes |
+|------|----------|---------|-------|
+| Boot state, flags | `Preferences.h` | 🔒 Flash | Stored in internal flash, safe to write infrequently |
+| Current profile ID | `Preferences.h` | 🔒 Flash | Small scalar setting |
+| All profile data (JSON) | `LittleFS` or `SD.h` | 🔄 Flash / 💾 SD | Flash for fast access, SD for capacity |
+| Telemetry / debug logs | `SdFat.h` | 💾 SD | Especially if frequent or high-volume |
+| Backup files | `SD.h` or `LittleFS` | 🔄 Flash / 💾 SD | Choose based on file size & use case |
+| Static assets (UI) | `LittleFS` | 🔒 Flash | Fast read, persistent |
+| Asset streaming (images, etc.) | `SD.h` or `SdFat.h` | 💾 SD | Use SD due to space limitations |
+
+Legend:
+- 🔒 Flash
+- 💾 SD
+- 🔄 Either (depending on size/speed)
