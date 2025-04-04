@@ -1,6 +1,7 @@
+# 🔌 Pinout/Wiring Guide
 
-# 📌 Pin Assignments
-This document lists the pin assignments for the ESP32-S3 Reverse TFT Feather and attached peripherals.
+Describe or diagram how components are connected (I2C, SPI, analog, etc.).
+This is useful for prototyping and final builds.
 
 ## Hardware Interfaces
 
