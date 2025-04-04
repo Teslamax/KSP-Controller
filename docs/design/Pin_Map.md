@@ -34,3 +34,16 @@ This document lists the pin assignments for the ESP32-S3 Reverse TFT Feather and
 | I2C SCL              | GPIO 4       | Used by NeoKey QT                  |
 | NeoKey INT (optional)| -            | Not needed unless interrupts used  |
 | Available GPIOs      | GPIO 8–20+   | For buttons, encoders, LEDs        |
+
+## 📌 Default Pins Used by Onboard Hardware
+
+| Function          | Pin  | Notes                      |
+|------------------|------|----------------------------|
+| TFT CS           | D7   | Chip Select for TFT        |
+| TFT DC           | D8   | Command/Data select        |
+| TFT Backlight    | D13  | PWM brightness control     |
+| Button A         | D0   | Left button                |
+| Button B         | D3   | Center button              |
+| Button C         | D38  | Right button               |
+| I2C SDA          | D2   | Shared with MAX17048       |
+| I2C SCL          | D1   | Shared with MAX17048       |

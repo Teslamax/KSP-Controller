@@ -38,3 +38,23 @@
 - ⚠️ GPIO40–47 are reserved for the built-in TFT display and **should not be used for external peripherals**.
 - ⚠️ ESP32-S3 has **fewer ADC channels** than the standard ESP32. Plan analog inputs accordingly.
 - ✅ Native USB supports **CDC, HID, and Mass Storage** via TinyUSB.
+
+---
+
+## 📘 ESP32-S3 Reverse TFT Feather – Adafruit Learn Guide Highlights
+
+- **Display**: 1.14" 240×135 TFT (ST7789), rear-mounted
+- **Microcontroller**: ESP32-S3 @ 240MHz, dual-core, with BLE and Wi-Fi
+- **USB-C**: Native USB interface for HID, CDC, and power
+- **Memory**: 4MB Flash, 2MB PSRAM
+- **Power Options**: USB-C, LiPoly, with battery monitoring (MAX17048)
+- **Default Pin Assignments**:
+  - TFT CS: GPIO 7
+  - TFT DC: GPIO 8
+  - TFT Backlight: GPIO 13
+  - I2C: GPIO 1 (SCL), GPIO 2 (SDA)
+  - User buttons: GPIOs 0, 3, 38
+- **Notes**:
+  - Use **ADC1 only** when Wi-Fi or BLE is active
+  - No Classic Bluetooth (BLE only)
+  - UF2 bootloader supports drag-and-drop recovery
