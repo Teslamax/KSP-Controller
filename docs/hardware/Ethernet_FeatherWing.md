@@ -2,7 +2,7 @@
 
 **Link**: https://www.adafruit.com/product/3201  
 **Chipset**: WIZnet W5500  
-**Interface**: SPI
+**Interface**: `SPI`
 
 ## Pin Usage (suggested)
 
@@ -21,6 +21,6 @@
 
 ## ❗ Technical Limitations & Notes
 
-- ⚠️ WIZ5500 Ethernet controller uses SPI — must assign a **dedicated CS pin** (suggested: GPIO10).
+- ⚠️ WIZ5500 Ethernet controller uses SPI — must assign a **dedicated CS pin** (suggested: `GPIO10`).
 - ⚠️ SD and Ethernet sharing SPI requires careful CS management.
 - ⚠️ May require **external 3.3V regulator** for stable operation in high-current scenarios.
