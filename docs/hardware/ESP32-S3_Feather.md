@@ -16,7 +16,16 @@
 
 | GPIO | Pin # | Notes |
 |---|---|---|
-| GPIO | | Usable for general I/O|
+| `00`-`19` | | Usable for general I/O|
+| `21` | | Usable for general I/O|
+| `33`-`48` | | Usable for general I/O|
+| `06` | | `SCL0` (used for QT port) |
+| `05` | | `SDA0` (used for QT port) |
+| `10` | | `CS` (used for Ethernet or `SPI` device) |
+| `36` | | `SPI`:`MOSI` |
+| `35` | | `SPI`:`MISO`|
+| `37` | | `SPI`:`SCK`|
+| `21` | | SD Card `CS` (on Adalogger) |
 
 ## Notes
 
