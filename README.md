@@ -8,7 +8,7 @@ This project is structured to support both **experimentation** and **final build
 
 ## 📌 Project Documents
 
-- 📄 [Comprehensive Proposal](Proposal.md)
+- 📄 [Comprehensive Proposal](docs/design/Controller_Design_Spec.md)
 - 📄 [ESP32-S3 vs Teensy 4.1 Comparison](docs/comparison-esp32s3-teensy41.md)
 - 📄 [Pinout & Bill of Materials](docs/hardware/pinout.md)
 - 📄 [Recommended Directory Structure](docs/dev-log.md)
