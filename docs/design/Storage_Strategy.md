@@ -71,4 +71,36 @@ This document outlines the various storage options available on the ESP32-S3 Rev
 - ⚠ **Internal flash and EEPROM share erase blocks** — frequent EEPROM writes can reduce flash lifespan.
 - ⚡ **microSD supports large log files** but requires proper write buffering and mount handling.
 - 🚫 **EEPROM is not suitable for large structured config or logs**.
+---
 
+## 🧰 Flash & SD Access APIs: Use-Case Comparison
+
+| Storage Type | API | Best For | Pros | Cons |
+|--------------|-----|----------|------|------|
+| **Flash** (Key/Value) | `Preferences.h` | Boot mode, selected profile, config flags | Atomic, namespaced, robust | ~4KB per namespace |
+| **Flash** (Legacy) | `EEPROM.h` | Porting older code | Simple, minimal | Not robust, needs manual `.commit()` |
+| **Flash** (Files) | `LittleFS` | JSON configs, local logs, small assets | File structure, better than SPIFFS | Slower, needs mount/format |
+| **SD Card** (Generic) | `SD.h` | Simple data logging, config backups | Easy to use | Less performance tuning |
+| **SD Card** (Advanced) | `SdFat.h` | Fast or large-volume logging | Fast, exFAT, optimized | More complex, lower-level |
+
+---
+
+## ⚙️ Recommendations by Task
+
+| Task | Best API | Notes |
+|------|----------|-------|
+| Boot state, flags | `Preferences.h` | Stored in flash, safe to write infrequently |
+| Current profile ID | `Preferences.h` | Small scalar |
+| All profile data (JSON) | `LittleFS` or `SD.h` | Flash for fast access, SD for space |
+| Telemetry / debug logs | `SdFat.h` | Especially if frequent or high-volume |
+| Backup files | `SD.h` or `LittleFS` | Depending on size & permanence |
+| Static assets (UI) | `LittleFS` | Fast read, persistent |
+| Asset streaming (images, etc.) | `SD.h` or `SdFat.h` | Flash too small, use SD |
+
+---
+
+## 📝 Notes
+
+- Always **flush buffers** for log safety on SD (`file.flush()` or `fs.close()`).
+- Use **`Preferences`** over `EEPROM` for new projects.
+- Prefer **LittleFS** over SPIFFS if available.
