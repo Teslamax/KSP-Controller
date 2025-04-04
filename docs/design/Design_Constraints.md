@@ -9,6 +9,7 @@ This document outlines technical limitations and required precautions when integ
 - ⚠️ GPIO40–47 are reserved for the TFT display
 - ⚠️ Limited ADC channels compared to ESP32
 - ✅ Native USB supports HID, CDC, Mass Storage via TinyUSB
+- Internal flash storage has supports varying wear-leveling options
 
 ## Ethernet FeatherWing
 - ⚠️ Uses SPI — requires dedicated CS (e.g. GPIO10)
