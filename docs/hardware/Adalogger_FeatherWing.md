@@ -19,3 +19,8 @@
 
 - `RTClib`
 - `SdFat` or `SD`
+
+## ❗ Technical Limitations & Notes
+
+- ⚠️ RTC (DS3231) uses I2C — ensure no address conflicts with NeoKey or other I2C devices.
+- ⚠️ SD Card uses SPI — must use a **dedicated CS pin** if Ethernet is also used on SPI.

@@ -20,3 +20,9 @@
 
 - `Adafruit_NeoKey`
 - `Adafruit_seesaw`
+
+## ❗ Technical Limitations & Notes
+
+- ⚠️ Uses I2C at address **0x30 (default)** — reconfigure jumpers to avoid conflicts if needed.
+- ⚠️ Operates at 3.3V or 5V — confirm compatibility with Feather board voltage.
+- ✅ Fully compatible with STEMMA QT daisy-chaining.

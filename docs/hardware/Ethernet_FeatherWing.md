@@ -18,3 +18,9 @@
 
 - `Ethernet_Generic`
 - `Adafruit_TinyUSB` (for composite USB)
+
+## ❗ Technical Limitations & Notes
+
+- ⚠️ WIZ5500 Ethernet controller uses SPI — must assign a **dedicated CS pin** (suggested: GPIO10).
+- ⚠️ SD and Ethernet sharing SPI requires careful CS management.
+- ⚠️ May require **external 3.3V regulator** for stable operation in high-current scenarios.

@@ -24,3 +24,10 @@
 
 - `Adafruit_TinyUSB`
 - `Adafruit_GFX`, `Adafruit_ILI9341`
+
+## ❗ Technical Limitations & Notes
+
+- 🚫 Does **not** support Classic Bluetooth — only BLE is available.
+- ⚠️ GPIO40–47 are reserved for the built-in TFT display and **should not be used for external peripherals**.
+- ⚠️ ESP32-S3 has **fewer ADC channels** than the standard ESP32. Plan analog inputs accordingly.
+- ✅ Native USB supports **CDC, HID, and Mass Storage** via TinyUSB.
