@@ -1,4 +1,4 @@
-# ** KSP & Space Simulation Controller — System Design Specification**
+# KSP & Space Simulation Controller — System Design Specification
 
 ## **📌 Project Overview**
 This document outlines the design, features, and integration of a **custom-built space simulation controller** for **Kerbal Space Program (KSP)** and other space-based games. It includes UI/UX design, power considerations, microcontroller selection, feature implementation, and software integration with KSP mods.
