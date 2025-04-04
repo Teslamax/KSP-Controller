@@ -96,7 +96,48 @@ This document outlines the various storage options available on the ESP32-S3 Rev
 
 ---
 
-Let me know if you want this integrated with an existing doc later or refactored by storage type instead of task!
+## 🧠 Flash Memory & Wear Leveling Options
+
+### 🔒 1. **Internal Flash (ESP32-S3)**
+ESP32’s internal flash uses **raw NOR flash memory** (external SPI chip but "internal" to the board logic). It **does not** do automatic wear leveling unless you're using a file system that implements it.
+
+#### ✅ File System Layer (Recommended):
+- **`LittleFS`**: YES, includes **basic wear leveling** and block management.
+- **`SPIFFS`**: YES, but deprecated and inferior to LittleFS in terms of performance and reliability.
+- ✅ **Best option if you're storing config/log files**.
+
+#### ❌ Key-Value APIs (No Wear Leveling):
+- **`Preferences.h`** and **`EEPROM.h`** write directly to specific flash pages/sectors.
+- These do *not* perform wear leveling. Repeated writes to the same key or address can degrade those sectors quickly.
+
+**Recommendation:** Rotate variable names (or pad structures) manually to reduce stress if using `Preferences`.
+
+---
+
+### 💾 2. **SD Card**
+SD cards **do** implement wear leveling *internally* (via their controller firmware), especially **high-endurance** models designed for dashcams or data logging.
+
+- **You don’t have to manage it yourself**.
+- **Still** recommended to avoid excessive file rewrites and use proper **buffering** or **append-only** strategies.
+
+---
+
+### 🔄 3. **External Flash via QSPI (not on your current board)**
+Some boards (like Feather RP2040 or ESP32 with external QSPI NOR/NAND) allow **more advanced wear leveling** with full **Flash Translation Layers (FTL)** or **FatFS** on top.
+
+You’re not using these currently, but worth noting if you ever need **larger writable flash**.
+
+---
+
+## ✅ Summary: What to Use for Wear-Leveling
+
+| API / System      | Wear-Leveling? | Suitable For               | Notes |
+|-------------------|----------------|----------------------------|-------|
+| `Preferences.h`   | ❌              | Flags, boot state          | Limited writes only |
+| `EEPROM.h`        | ❌              | Legacy simple values       | Same risk |
+| `LittleFS`        | ✅              | Configs, logs, small assets| Best balance |
+| `SD.h`, `SdFat.h` | ✅ (internal)   | Logging, backups           | Use high-endurance cards |
+| SPIFFS (legacy)   | ✅ (basic)      | Deprecated                 | Use LittleFS instead |
 
 ---
 
@@ -105,3 +146,9 @@ Let me know if you want this integrated with an existing doc later or refactored
 - Always **flush buffers** for log safety on SD (`file.flush()` or `fs.close()`).
 - Use **`Preferences`** over `EEPROM` for new projects.
 - Prefer **LittleFS** over SPIFFS if available.
+
+
+
+
+
+
