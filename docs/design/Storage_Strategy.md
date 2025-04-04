@@ -84,28 +84,6 @@ This document outlines the various storage options available on the ESP32-S3 Rev
 | **SD Card** (Advanced) | `SdFat.h` | Fast or large-volume logging | Fast, exFAT, optimized | More complex, lower-level |
 
 ---
-
-## ⚙️ Recommendations by Task
-
-| Task | Best API | Notes |
-|------|----------|-------|
-| Boot state, flags | `Preferences.h` | Stored in flash, safe to write infrequently |
-| Current profile ID | `Preferences.h` | Small scalar |
-| All profile data (JSON) | `LittleFS` or `SD.h` | Flash for fast access, SD for space |
-| Telemetry / debug logs | `SdFat.h` | Especially if frequent or high-volume |
-| Backup files | `SD.h` or `LittleFS` | Depending on size & permanence |
-| Static assets (UI) | `LittleFS` | Fast read, persistent |
-| Asset streaming (images, etc.) | `SD.h` or `SdFat.h` | Flash too small, use SD |
-
----
-
-## 📝 Notes
-
-- Always **flush buffers** for log safety on SD (`file.flush()` or `fs.close()`).
-- Use **`Preferences`** over `EEPROM` for new projects.
-- Prefer **LittleFS** over SPIFFS if available.
----
-
 ## ⚙️ Recommendations by Task
 
 | Task | Best API | Storage | Notes |
@@ -122,3 +100,11 @@ Legend:
 - 🔒 Flash
 - 💾 SD
 - 🔄 Either (depending on size/speed)
+
+---
+
+## 📝 Notes
+
+- Always **flush buffers** for log safety on SD (`file.flush()` or `fs.close()`).
+- Use **`Preferences`** over `EEPROM` for new projects.
+- Prefer **LittleFS** over SPIFFS if available.
