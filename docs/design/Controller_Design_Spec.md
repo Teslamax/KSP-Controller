@@ -158,8 +158,3 @@ As the project evolves, different microcontroller platforms are being evaluated.
 - **Refine internal wiring design (keystone vs. panel-mount connectors).**
 - **Design a PCB layout for switch & encoder connections.**
 - **Begin prototype assembly with Teensy 4.1 & PoE splitter.**
-
----
-
-🚀 **This document provides a structured plan for the controller build, ensuring a clean design and effective integration. Let me know if you need revisions!**
-
