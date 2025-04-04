@@ -52,27 +52,6 @@ This document outlines the various storage options available on the ESP32-S3 Rev
 
 ---
 
-## 🔍 Recommendation Table
-
-| Use Case                      | Recommended Storage        | Rationale |
-|------------------------------|----------------------------|-----------|
-| Boot state, last mode        | EEPROM / Preferences       | Persistent, atomic |
-| HID profile (current only)   | EEPROM                     | Fast, small |
-| HID profiles (all saved)     | SD Card                    | Larger, versionable |
-| Debug logs                   | SD Card                    | Frequent writes, removable |
-| JSON config & backups        | SD Card                    | Flexible format, space |
-| Images / fonts (UI)          | Flash or SD                | Flash for speed, SD for size |
-| Firmware & binaries          | Flash                      | Only supported location |
-
----
-
-## ✍ Notes
-
-- ⚠ **Internal flash and EEPROM share erase blocks** — frequent EEPROM writes can reduce flash lifespan.
-- ⚡ **microSD supports large log files** but requires proper write buffering and mount handling.
-- 🚫 **EEPROM is not suitable for large structured config or logs**.
----
-
 ## 🧰 Flash & SD Access APIs: Use-Case Comparison
 
 | Storage Type | API | Best For | Pros | Cons |
@@ -84,22 +63,40 @@ This document outlines the various storage options available on the ESP32-S3 Rev
 | **SD Card** (Advanced) | `SdFat.h` | Fast or large-volume logging | Fast, exFAT, optimized | More complex, lower-level |
 
 ---
+
 ## ⚙️ Recommendations by Task
 
-| Task | Best API | Storage | Notes |
-|------|----------|---------|-------|
-| Boot state, flags | `Preferences.h` | 🔒 Flash | Stored in internal flash, safe to write infrequently |
-| Current profile ID | `Preferences.h` | 🔒 Flash | Small scalar setting |
-| All profile data (JSON) | `LittleFS` or `SD.h` | 🔄 Flash / 💾 SD | Flash for fast access, SD for capacity |
-| Telemetry / debug logs | `SdFat.h` | 💾 SD | Especially if frequent or high-volume |
-| Backup files | `SD.h` or `LittleFS` | 🔄 Flash / 💾 SD | Choose based on file size & use case |
-| Static assets (UI) | `LittleFS` | 🔒 Flash | Fast read, persistent |
-| Asset streaming (images, etc.) | `SD.h` or `SdFat.h` | 💾 SD | Use SD due to space limitations |
+| Task / Use Case              | Best API             | Storage     | Rationale / Notes |
+|-----------------------------|----------------------|-------------|-------------------|
+| Boot state, flags           | `Preferences.h`      | 🔒 Flash     | Stored in internal flash; safe to write infrequently; persistent & atomic |
+| Current profile ID          | `Preferences.h`      | 🔒 Flash     | Small scalar setting; fast access |
+| All profile data (JSON)     | `LittleFS` or `SD.h` | 🔄 Flash / 💾 SD | Flash for fast access; SD for storage capacity and versioning |
+| Debug logs                  | `SdFat.h`            | 💾 SD        | Frequent or high-volume writes; SD is removable |
+| Backup files (e.g. configs) | `SD.h` or `LittleFS` | 🔄 Flash / 💾 SD | Choose based on file size and how often backups occur |
+| Static assets (fonts/images)| `LittleFS`           | 🔒 Flash     | Persistent and fast reads for UI |
+| Asset streaming (media)     | `SD.h` or `SdFat.h`  | 💾 SD        | Use SD for size capacity and removable access |
+| Firmware and binaries       | *N/A (platform-managed)* | 🔒 Flash | Stored in flash via OTA or bootloader; can't use SD |
+| HID profile (current only)  | `Preferences.h`      | 🔒 Flash     | Fast, atomic access for switching profiles |
+| HID profiles (all saved)    | `SD.h`               | 💾 SD        | Versionable, large, external storage |
+| JSON config & backups       | `SD.h` or `LittleFS` | 🔄 Flash / 💾 SD | JSON is flexible; SD allows offloading backups |
+| Boot mode & startup flags   | `Preferences.h`      | 🔒 Flash     | Very limited writes; suitable for preferences |
 
-Legend:
+**Legend:**
 - 🔒 Flash
 - 💾 SD
-- 🔄 Either (depending on size/speed)
+- 🔄 Either (depending on space, volatility, and speed)
+
+---
+
+## ✍ Notes
+
+- ⚠ **Internal flash and EEPROM share erase blocks** — frequent EEPROM writes can reduce flash lifespan.
+- ⚡ **microSD supports large log files** but requires proper write buffering and mount handling.
+- 🚫 **EEPROM is not suitable for large structured config or logs**.
+
+---
+
+Let me know if you want this integrated with an existing doc later or refactored by storage type instead of task!
 
 ---
 
