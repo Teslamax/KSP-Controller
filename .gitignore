@@ -44,6 +44,10 @@ __pycache__/
 
 # Version control conflict leftovers
 *.orig
+
+# allow backup firmware storage
+!recovery_firmware/*.bin
+!recovery_firmware/*.uf2
 *.rej
 *~
 
