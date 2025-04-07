@@ -1,0 +1,30 @@
+name: Build Combined Markdown
+
+on:
+  push:
+    paths:
+      - 'docs/**/*.md'
+      - '.github/workflows/build-combined-docs.yml'
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Concatenate Markdown files
+        run: |
+          mkdir -p build
+          echo "# 🧩 Combined Project Docs" > build/ALL_NOTES_COMBINED.md
+          echo "Generated on $(date)\n" >> build/ALL_NOTES_COMBINED.md
+          for f in $(find docs -name '*.md' | sort); do
+            echo -e "\n# --- $f ---\n" >> build/ALL_NOTES_COMBINED.md
+            cat "$f" >> build/ALL_NOTES_COMBINED.md
+          done
+
+      - name: Commit combined markdown (optional)
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-update: Combined Markdown docs"
+          file_pattern: build/ALL_NOTES_COMBINED.md

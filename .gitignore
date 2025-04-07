@@ -47,3 +47,7 @@ __pycache__/
 *.rej
 *~
 
+# allow backup firmware storage
+!recovery_firmware/board_recovery/*.bin
+!recovery_firmware/board_recovery/*.uf2
+
