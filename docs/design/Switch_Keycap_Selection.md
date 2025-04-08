@@ -1,4 +1,4 @@
-# 🎛️ Switch & Keycap Selection Guide
+# 🎛️ Prototyping Switch & Keycap Selection Guide
 
 This guide documents the evaluation process for choosing **mechanical switches** and **keycaps** suitable for the KSP Controller project, with emphasis on **control panel usability**, **RGB visibility**, and **tactile feedback**. All switches discussed are MX-compatible and intended for use with the **NeoKey 1x4 STEMMA QT** board.
 
