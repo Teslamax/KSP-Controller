@@ -102,8 +102,17 @@ Evaluating different control methods for RGB LEDs, including I2C controllers or 
 ---
 
 ## **📌 Appendix: Defining the Project Scope**
+### Philosophical Approach
+- Avoid unnecessary complexity; only add controls that improve gameplay or immersion
+- Don't replace the keyboard/mouse unless there's clear benefit
+- Prioritize controls that provide physical or contextual feedback better than screen-only UI
+
+- Respect emotional connection to KSP1 and the anticipation of building
+- Embrace anticipation and gradual build progress as part of the joy
+
 ### **What Really Needs to Be in This Project?**
-- Essential **flight controls, throttle, and key spacecraft toggles** (SAS, RCS, lights, landing gear, brakes).
+- Essential **flight controls, throttle, and key spacecraft toggles** (SAS, RCS, lights, landing gear, brakes)
+- Enable mode-switching functionality with RGB and/or OLED/TFT displays
 - **Navigation displays** that enhance real-time decision-making without cluttering in-game UI.
 
 ### **What Could Be Handled with a Keyboard/Mouse?**
